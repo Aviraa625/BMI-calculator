@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Биеийн жингийн индекс тооцоолуур</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Биеийн жингийн индекс тооцоолуур</h1>
+            <p>Өндөр (см)</p>
+            <input type="text" id="height">
+            <p>Жин (кг)</p>
+            <input type="text" id="weight">
+            <button id="btn">Тооцоолох</button>
+            <div id="result"></div>
+        </div>
+    </body>
+    <script>
+        window.onload = () => {
+            let button = document.querySelector("#btn");
+            let heightInput = document.querySelector("#height");
+            let weightInput = document.querySelector("#weight");
+
+            // Trigger the calculation when Enter key is pressed in either input field
+            heightInput.addEventListener("keydown", function(event) {
+                if (event.keyCode === 13) {
+                    calculateBMI();
+                }
+            });
+
+            weightInput.addEventListener("keydown", function(event) {
+                if (event.keyCode === 13) {
+                    calculateBMI();
+                }
+            });
+
+            button.addEventListener("click", calculateBMI);
+        };
+
+        function calculateBMI() {
+            let height = parseFloat(document.querySelector("#height").value);
+            let weight = parseFloat(document.querySelector("#weight").value);
+            let result = document.querySelector("#result");
+
+            if (isNaN(height) || isNaN(weight)) {
+                result.innerHTML = "Өндөр жингээ бүтэн оруулаарай!!!";
+            } else {
+                let bmi = (weight / ((height * height) / 10000)).toFixed(2);
+
+                if (bmi < 18.6)
+                    result.innerHTML = `Ээ одоо жаахан таргалаа хөгшөөн: ${bmi}`;
+                else if (bmi >= 18.6 && bmi < 24.9)
+                    result.innerHTML = `Яаа хэвийн байна шүү : ${bmi}`;
+                else
+                    result.innerHTML = `Тарган байна өө : ${bmi}`;
+            }
+        }
+    </script>
+</html>
